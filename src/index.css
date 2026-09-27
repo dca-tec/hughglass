@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    border-color: rgba(212, 197, 176, 0.14);
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #0c0d12;
+    color: #e8e2d8;
+  }
+  .font-display {
+    font-family: 'Cinzel', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Noble Egyptian, Copper Metallic & Cobalt Sulfate Utilities */
+.text-copper {
+  color: #d18242;
+}
+
+.text-copper-light {
+  color: #e5985a;
+}
+
+.text-cobalt {
+  color: #38bdf8;
+}
+
+.text-cobalt-sulfate {
+  color: #0284c7;
+}
+
+.text-sand {
+  color: #f5efe6;
+}
+
+.text-sand-muted {
+  color: #d4c5b0;
+}
+
+.bg-copper {
+  background-color: #c27839;
+}
+
+.bg-copper-dark {
+  background-color: #1e1610;
+}
+
+.bg-cobalt-dark {
+  background-color: #0d1b2a;
+}
+
+.border-copper {
+  border-color: rgba(194, 120, 57, 0.4);
+}
+
+.border-cobalt {
+  border-color: rgba(2, 132, 199, 0.4);
+}
+
+.border-sand {
+  border-color: rgba(212, 197, 176, 0.2);
+}
+
+/* Custom scrollbar in Egyptian Sand & Copper */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0d12;
+}
+::-webkit-scrollbar-thumb {
+  background: #3d3428;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c27839;
+}
+
+/* Glassmorphism custom utilities */
+.glass-panel {
+  background: rgba(18, 21, 30, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 197, 176, 0.15);
+}
+
+/* Leaflet map styles with Egyptian Dark & Cobalt popup */
+.leaflet-container {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #0c0d12 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #141724 !important;
+  color: #f5efe6 !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(194, 120, 57, 0.35) !important;
+  box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.7) !important;
+}
+
+.leaflet-popup-tip {
+  background: #141724 !important;
+}

@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return (
+        isSignedIn() && (
+          (request.auth.token.email == 'dca.tec.br@gmail.com') ||
+          (request.auth.token.email_verified == true && request.auth.token.email == 'dca.tec.br@gmail.com') ||
+          exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        )
+      );
+    }
+
+    function isValidSiteMedia(data) {
+      return data.keys().hasAll(['id', 'title', 'category', 'imageUrl', 'isActive', 'displayOrder']) &&
+        data.keys().hasOnly(['id', 'title', 'description', 'category', 'imageUrl', 'targetUrl', 'ctaText', 'badge', 'accentColor', 'displayOrder', 'isActive', 'unitCity', 'aspectRatio', 'tags', 'createdAt', 'updatedAt']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.title is string && data.title.size() <= 160 &&
+        (!('description' in data) || (data.description is string && data.description.size() <= 1000)) &&
+        data.category in ['top_banner', 'housing_gallery', 'lockers_gallery', 'infrastructure', 'social_impact'] &&
+        data.imageUrl is string && data.imageUrl.size() <= 1000000 &&
+        (!('targetUrl' in data) || (data.targetUrl is string && data.targetUrl.size() <= 500)) &&
+        (!('ctaText' in data) || (data.ctaText is string && data.ctaText.size() <= 60)) &&
+        (!('badge' in data) || (data.badge is string && data.badge.size() <= 60)) &&
+        (!('accentColor' in data) || (data.accentColor is string && data.accentColor.size() <= 30)) &&
+        data.displayOrder is number &&
+        data.isActive is bool &&
+        (!('unitCity' in data) || (data.unitCity is string && data.unitCity.size() <= 100)) &&
+        (!('aspectRatio' in data) || (data.aspectRatio is string && data.aspectRatio.size() <= 20)) &&
+        (!('tags' in data) || (data.tags is list && data.tags.size() <= 10)) &&
+        (!('createdAt' in data) || (data.createdAt is string && data.createdAt.size() <= 60)) &&
+        (!('updatedAt' in data) || (data.updatedAt is string && data.updatedAt.size() <= 60));
+    }
+
+    function isValidAdmin(data) {
+      return data.keys().hasAll(['uid', 'email', 'role']) &&
+        data.keys().hasOnly(['uid', 'email', 'role', 'createdAt']) &&
+        data.uid is string && data.uid.size() <= 128 &&
+        data.email is string && data.email.size() <= 200 &&
+        data.role in ['superadmin', 'editor'];
+    }
+
+    // Site Media items (Banners, Galleries, Lockers, Infrastructure)
+    match /site_media/{mediaId} {
+      // Public can read all site_media, or filter active ones
+      allow read: if true;
+      allow create: if isValidId(mediaId) && isValidSiteMedia(incoming()) && incoming().id == mediaId;
+      allow update: if isValidId(mediaId) && isValidSiteMedia(incoming()) && incoming().id == existing().id;
+      allow delete: if isValidId(mediaId);
+    }
+
+    // Health check and connection verification
+    match /test/{docId} {
+      allow read: if true;
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && isSignedIn() && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin();
+      allow create, update: if isValidId(adminId) && isAdmin() && isValidAdmin(incoming()) && incoming().uid == adminId;
+      allow delete: if isValidId(adminId) && isAdmin() && request.auth.uid != adminId;
+    }
+  }
+}

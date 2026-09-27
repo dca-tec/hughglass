@@ -1,0 +1,123 @@
+{
+  "entities": {
+    "SiteMediaItem": {
+      "title": "SiteMediaItem",
+      "description": "Midia visual do site gerenciada pelo painel administrativo (fullbanners do topo, galerias de moradia, lockers e infraestrutura)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador unico do item de midia",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "description": "Titulo da peca visual ou banner",
+          "maxLength": 160
+        },
+        "description": {
+          "type": "string",
+          "description": "Descricao ou legenda da midia",
+          "maxLength": 1000
+        },
+        "category": {
+          "type": "string",
+          "description": "Categoria da midia no site",
+          "enum": ["top_banner", "housing_gallery", "lockers_gallery", "infrastructure", "social_impact"]
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL ou URI em base64 da imagem de alta resolucao",
+          "maxLength": 1000000
+        },
+        "targetUrl": {
+          "type": "string",
+          "description": "Link ou ancora de destino ao clicar",
+          "maxLength": 500
+        },
+        "ctaText": {
+          "type": "string",
+          "description": "Texto do botao de acao",
+          "maxLength": 60
+        },
+        "badge": {
+          "type": "string",
+          "description": "Texto de destaque ou selo promocional",
+          "maxLength": 60
+        },
+        "accentColor": {
+          "type": "string",
+          "description": "Cor de destaque do banner",
+          "maxLength": 30
+        },
+        "displayOrder": {
+          "type": "number",
+          "description": "Ordem de prioridade de exibicao"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indica se a midia esta visivel publicamente no site"
+        },
+        "unitCity": {
+          "type": "string",
+          "description": "Cidade associada a foto de moradia ou hub",
+          "maxLength": 100
+        },
+        "aspectRatio": {
+          "type": "string",
+          "description": "Proporcao sugerida da imagem",
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Data de criacao no padrao ISO ou timestamp",
+          "maxLength": 50
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Data da ultima alteracao",
+          "maxLength": 50
+        }
+      },
+      "required": ["id", "title", "category", "imageUrl", "isActive", "displayOrder"]
+    },
+    "AdminProfile": {
+      "title": "AdminProfile",
+      "description": "Registro de usuario com permissao administrativa",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "ID de autenticacao do administrador",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "Email do administrador",
+          "maxLength": 200
+        },
+        "role": {
+          "type": "string",
+          "description": "Nivel de permissao administrativa",
+          "enum": ["superadmin", "editor"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Data de cadastro",
+          "maxLength": 50
+        }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/site_media/{mediaId}": {
+      "schema": { "$ref": "#/entities/SiteMediaItem" },
+      "description": "Colecao com banners promocionais, fotos de moradias, armarios lockers e infraestrutura"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminProfile" },
+      "description": "Colecao com administradores habilitados para gestao do site"
+    }
+  }
+}

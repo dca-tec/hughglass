@@ -1,0 +1,6 @@
+{
+  "name": "NômadeHub - Endereço Virtual & Gestão Logística",
+  "description": "Hub de endereço virtual, armários lockers 24/7, digitalização OCR de correspondências e endereço fiscal para nômades digitais, vanlifers e empreendedores.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
