@@ -154,10 +154,10 @@ export const HeroFullBanner: React.FC<HeroFullBannerProps> = ({
       {/* CONTEÚDO PRINCIPAL SOBREPOSTO AO BANNER 100% */}
       <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 z-10 text-center flex flex-col items-center">
         
-        {/* KICKER DE INSPIRAÇÃO EGÍPCIA ANCESTRAL */}
+        {/* KICKER OFICIAL HUGH GLASS */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1e1711]/90 border border-[#c27839]/50 text-[#e5985a] text-xs sm:text-sm font-semibold tracking-wide backdrop-blur-md shadow-md mb-6">
           <Compass className="w-4 h-4 text-[#e5985a] shrink-0" />
-          <span>{currentBanner.badge || 'INSPIRAÇÃO NÔMADE ANCESTRAL • LEI FEDERAL 7.115/1983'}</span>
+          <span>{currentBanner.badge || 'HUGH GLASS • CONEXÃO • VISÃO • TERRITÓRIO • LEI FEDERAL 7.115/1983'}</span>
         </div>
 
         {/* HEADLINE MONUMENTAL */}
@@ -302,17 +302,6 @@ export const HeroFullBanner: React.FC<HeroFullBannerProps> = ({
             </span>
           </div>
         )}
-
-        {/* LINK RÁPIDO PARA O ADMIN */}
-        <div className="mt-4">
-          <button
-            onClick={onOpenAdmin}
-            className="text-xs text-[#9e8e78] hover:text-[#e5985a] inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <Sliders className="w-3.5 h-3.5" />
-            <span>Gerenciar fotos e banners no painel Admin</span>
-          </button>
-        </div>
 
       </div>
 

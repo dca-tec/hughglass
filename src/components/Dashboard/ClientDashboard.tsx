@@ -61,12 +61,12 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
       ocrSnippet: 'Comunicado formal de homologação e certidão emitida com sucesso...',
       ocrText: `CARTÓRIO DE REGISTRO CIVIL E NOTAS - FLORIANÓPOLIS
 Comunicação de Registro e Protocolo Digital
-Destinatário: Box NH-042 - Hub Campeche
-Situação: Válido e arquivado digitalmente no cofre de dados seguro NômadeHub.`
+Destinatário: Box HG-042 - Hub Campeche
+Situação: Válido e arquivado digitalmente no cofre de dados seguro Hugh Glass.`
     };
 
     setMailItems([newItem, ...mailItems]);
-    setNotificationToast('📬 Nova carta recebida e digitalizada no Box NH-042!');
+    setNotificationToast('📬 Nova carta recebida e digitalizada no Box HG-042!');
     setTimeout(() => setNotificationToast(null), 4000);
   };
 

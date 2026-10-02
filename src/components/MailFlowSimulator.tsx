@@ -196,12 +196,12 @@ export const MailFlowSimulator: React.FC = () => {
               {/* Chat Window Mockup */}
               <div className="rounded-2xl bg-[#0b141a] border border-slate-800 p-4 shadow-2xl text-xs space-y-3 font-sans max-w-sm mx-auto w-full">
                 <div className="flex items-center gap-2.5 pb-2 border-b border-slate-800 text-slate-200">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-slate-950">
-                    NH
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#c27839] via-[#d18242] to-[#e5985a] flex items-center justify-center font-bold text-slate-950">
+                    HG
                   </div>
                   <div>
                     <div className="flex items-center gap-1 font-bold text-white">
-                      <span>NômadeHub Oficial</span>
+                      <span>Hugh Glass Oficial</span>
                       <span className="text-[10px] text-emerald-400">✓</span>
                     </div>
                     <span className="text-[10px] text-slate-400">Conta Comercial Oficial</span>
@@ -209,7 +209,7 @@ export const MailFlowSimulator: React.FC = () => {
                 </div>
 
                 <div className="bg-[#202c33] p-3 rounded-xl text-slate-200 space-y-2">
-                  <p className="text-[11px] text-emerald-400 font-bold">📬 Correspondência recebida para Box NH-042</p>
+                  <p className="text-[11px] text-emerald-400 font-bold">📬 Correspondência recebida para Box HG-042</p>
                   <p className="text-[11px]">Identificamos um envelope prioritário da <strong>Receita Federal</strong> no Hub Florianópolis.</p>
                   <div className="rounded-lg overflow-hidden border border-slate-700">
                     <img 

@@ -87,15 +87,15 @@ export const WhatsAppFirstDemo: React.FC = () => {
     ]);
 
     setTimeout(() => {
-      let botAnswer = 'Entendido! Seu pedido foi registrado no seu painel NômadeHub.';
+      let botAnswer = 'Entendido! Seu pedido foi registrado no seu painel Hugh Glass.';
       const lower = userText.toLowerCase();
 
       if (lower.includes('lock') || lower.includes('armário') || lower.includes('retirar')) {
         botAnswer = '🔒 Seu armário é o #14 no Hub Florianópolis. O código de acesso gerado é 8392. Válido por 48 horas!';
       } else if (lower.includes('pdf') || lower.includes('digital') || lower.includes('carta')) {
-        botAnswer = '📄 Miolo escaneado em alta definição! Já está indexado com busca OCR em nomadehub.com.br/app.';
+        botAnswer = '📄 Miolo escaneado em alta definição! Já está indexado com busca OCR em hughglass.com.br/app.';
       } else if (lower.includes('onde') || lower.includes('endereço')) {
-        botAnswer = '📍 Seu endereço oficial ativo: Rodovia Francisco Magno Vieira, 1420 - Box NH-042 - Campeche, Florianópolis/SC - CEP 88063-700.';
+        botAnswer = '📍 Seu endereço oficial ativo: Rodovia Francisco Magno Vieira, 1420 - Box HG-042 - Campeche, Florianópolis/SC - CEP 88063-700.';
       }
 
       setMessages((prev) => [
@@ -173,14 +173,14 @@ export const WhatsAppFirstDemo: React.FC = () => {
               <div className="bg-[#202c33] px-4 py-3 flex items-center justify-between text-white border-b border-slate-700/50">
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-sm">
-                      NH
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#c27839] via-[#d18242] to-[#e5985a] flex items-center justify-center text-slate-950 font-black text-sm">
+                      HG
                     </div>
                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#202c33]" />
                   </div>
                   <div>
                     <div className="flex items-center gap-1 font-bold text-sm">
-                      <span>NômadeHub Oficial</span>
+                      <span>Hugh Glass Oficial</span>
                       <span className="text-[10px] text-emerald-400 bg-emerald-400/20 px-1 rounded-full font-bold">✓</span>
                     </div>
                     <span className="text-[10px] text-emerald-400 font-mono">online agora</span>
@@ -284,7 +284,7 @@ export const WhatsAppFirstDemo: React.FC = () => {
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce" />
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce delay-100" />
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce delay-200" />
-                    <span className="text-[10px] text-slate-300 font-mono ml-1">NômadeHub digitando...</span>
+                    <span className="text-[10px] text-slate-300 font-mono ml-1">Hugh Glass digitando...</span>
                   </div>
                 )}
 

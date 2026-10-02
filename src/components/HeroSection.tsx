@@ -244,12 +244,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       <div className="flex items-center justify-between text-emerald-400 font-semibold">
                         <span className="flex items-center gap-1.5">
                           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                          NômadeHub Bot (WhatsApp Oficial)
+                          Hugh Glass Bot (WhatsApp Oficial)
                         </span>
                         <span className="text-[10px] text-slate-400">Agora</span>
                       </div>
                       <p className="text-slate-200">
-                        📬 <strong>Correspondência Urgente Recebida!</strong> Um envelope oficial da <em>Receita Federal</em> acabou de ser protocolado em seu Box NH-042.
+                        📬 <strong>Correspondência Urgente Recebida!</strong> Um envelope oficial da <em>Receita Federal</em> acabou de ser protocolado em seu Box HG-042.
                       </p>
                       
                       {/* Photo preview of envelope */}

@@ -8,7 +8,9 @@ import {
   Building2, 
   Zap,
   HelpCircle,
-  Compass
+  Compass,
+  AlertCircle,
+  CreditCard
 } from 'lucide-react';
 
 interface CleanPricingSectionProps {
@@ -38,7 +40,7 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
           </p>
 
           {/* BILLING CYCLE SWITCHER (MENSAL / ANUAL) IN NOBLE SAND & COPPER */}
-          <div className="pt-4 flex items-center justify-center">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <div className="inline-flex items-center bg-[#141724] p-1.5 rounded-2xl border border-[#3d3428]">
               <button
                 onClick={() => setBillingCycle('monthly')}
@@ -60,11 +62,30 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
               >
                 <span>Plano Anual</span>
                 <span className="px-2 py-0.5 rounded-md bg-[#0c0d12] text-[#e5985a] text-[10px] font-black font-mono border border-[#c27839]/40">
-                  -15% OFF
+                  -15% OFF (Até 12x)
                 </span>
               </button>
             </div>
+
+            {/* GLOBAL PAYMENTS STRIPE BADGE */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#141724]/70 border border-[#0284c7]/40 text-xs text-[#38bdf8]">
+              <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[#635bff]/20 text-[#a594fd] font-bold border border-[#635bff]/30">
+                Stripe Global
+              </span>
+              <span>Aceitamos USD, EUR & BRL para fundadores estrangeiros</span>
+            </div>
           </div>
+
+          {/* CLARIFICAÇÃO DE DÉBITO INTEGRAL NO CARTÃO PARA O PLANO ANUAL */}
+          {billingCycle === 'yearly' && (
+            <div className="mt-3 p-3.5 rounded-2xl bg-[#18130e] border border-[#c27839]/50 text-xs text-[#e5985a] max-w-2xl mx-auto flex items-start sm:items-center gap-3 text-left sm:text-center animate-fade-in shadow-lg">
+              <AlertCircle className="w-5 h-5 shrink-0 text-[#d18242] mt-0.5 sm:mt-0" />
+              <p className="text-[12px] leading-relaxed text-[#f5efe6]">
+                <strong>Aviso de Limite no Cartão:</strong> No plano anual com parcelamento (até 12x sem juros), 
+                <strong className="text-[#e5985a]"> o valor integral do plano é debitado do limite disponível do seu cartão de crédito</strong> no ato da contratação, e as parcelas virão lançadas mês a mês na fatura.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* 3 PRICING CARDS */}
@@ -97,10 +118,24 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
                     {billingCycle === 'monthly' ? 'R$ 59' : 'R$ 49'}
                   </span>
                   <span className="text-sm text-[#9e8e78] font-medium">/mês</span>
+                  {billingCycle === 'yearly' && (
+                    <span className="text-xs font-mono text-[#e5985a] font-bold ml-1.5 bg-[#1e1711] px-2 py-0.5 rounded border border-[#c27839]/30">
+                      (em até 12x)
+                    </span>
+                  )}
                 </div>
-                <span className="text-xs text-[#9e8e78] mt-1 block">
-                  {billingCycle === 'monthly' ? 'Cobrado mensalmente no cartão ou PIX' : 'Economia de R$ 120 cobrado anualmente'}
-                </span>
+                <div className="mt-1.5 space-y-1">
+                  <span className="text-xs text-[#d4c5b0] block font-medium">
+                    {billingCycle === 'monthly' 
+                      ? 'Cobrança mensal recorrente de R$ 59,00' 
+                      : 'Total: R$ 588,00/ano à vista ou em até 12x de R$ 49,00'}
+                  </span>
+                  {billingCycle === 'yearly' && (
+                    <span className="text-[11px] text-[#9e8e78] block font-mono">
+                      * O valor integral de R$ 588 consome o limite do cartão no momento da assinatura.
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* FEATURES LIST */}
@@ -133,7 +168,7 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
               onClick={() => onSelectPlan('residential', billingCycle)}
               className="mt-8 w-full py-3.5 rounded-2xl bg-[#1a1f30] hover:bg-[#252b3d] text-[#f5efe6] font-bold text-sm border border-[#3d3428] hover:border-[#c27839] transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <span>Contratar Residencial</span>
+              <span>{billingCycle === 'yearly' ? 'Contratar por 12x de R$ 49' : 'Contratar Residencial'}</span>
               <ArrowRight className="w-4 h-4 text-[#d18242]" />
             </button>
           </div>
@@ -172,10 +207,24 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
                     {billingCycle === 'monthly' ? 'R$ 139' : 'R$ 119'}
                   </span>
                   <span className="text-sm text-[#9e8e78] font-medium">/mês</span>
+                  {billingCycle === 'yearly' && (
+                    <span className="text-xs font-mono text-[#0c0d12] font-black ml-1.5 bg-[#e5985a] px-2 py-0.5 rounded shadow-sm">
+                      (em até 12x)
+                    </span>
+                  )}
                 </div>
-                <span className="text-xs text-[#e5985a] font-medium mt-1 block">
-                  Economia de R$ 228/ano comparado a contratar separados
-                </span>
+                <div className="mt-1.5 space-y-1">
+                  <span className="text-xs text-[#e5985a] font-medium block">
+                    {billingCycle === 'monthly' 
+                      ? 'Cobrança mensal recorrente de R$ 139,00' 
+                      : 'Total: R$ 1.428,00/ano à vista ou em até 12x de R$ 119,00'}
+                  </span>
+                  {billingCycle === 'yearly' && (
+                    <span className="text-[11px] text-[#d4c5b0] block font-mono">
+                      * O valor integral de R$ 1.428 consome o limite do cartão no momento da assinatura.
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* FEATURES LIST */}
@@ -208,7 +257,7 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
               onClick={() => onSelectPlan('combo', billingCycle)}
               className="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-[#c27839] via-[#d18242] to-[#e5985a] hover:from-[#b4652a] hover:to-[#c27839] text-[#0c0d12] font-black text-base shadow-xl shadow-[#c27839]/30 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <span>Contratar Combo Completo</span>
+              <span>{billingCycle === 'yearly' ? 'Contratar por 12x de R$ 119' : 'Contratar Combo Completo'}</span>
               <ArrowRight className="w-5 h-5 stroke-[2.5]" />
             </button>
           </div>
@@ -240,10 +289,24 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
                     {billingCycle === 'monthly' ? 'R$ 99' : 'R$ 89'}
                   </span>
                   <span className="text-sm text-[#9e8e78] font-medium">/mês</span>
+                  {billingCycle === 'yearly' && (
+                    <span className="text-xs font-mono text-[#38bdf8] font-bold ml-1.5 bg-[#0d1f30] px-2 py-0.5 rounded border border-[#0284c7]/30">
+                      (em até 12x)
+                    </span>
+                  )}
                 </div>
-                <span className="text-xs text-[#9e8e78] mt-1 block">
-                  {billingCycle === 'monthly' ? 'Cobrado mensalmente no cartão ou PIX' : 'Economia de R$ 120 cobrado anualmente'}
-                </span>
+                <div className="mt-1.5 space-y-1">
+                  <span className="text-xs text-[#d4c5b0] block font-medium">
+                    {billingCycle === 'monthly' 
+                      ? 'Cobrança mensal recorrente de R$ 99,00' 
+                      : 'Total: R$ 1.068,00/ano à vista ou em até 12x de R$ 89,00'}
+                  </span>
+                  {billingCycle === 'yearly' && (
+                    <span className="text-[11px] text-[#9e8e78] block font-mono">
+                      * O valor integral de R$ 1.068 consome o limite do cartão no momento da assinatura.
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* FEATURES LIST */}
@@ -266,6 +329,10 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>Apto para Sócios Estrangeiros & Não-Residentes</strong> (IN RFB 2.119/22)</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
                   <span>Certidão negativa e regularidade tributária</span>
                 </li>
               </ul>
@@ -276,7 +343,7 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
               onClick={() => onSelectPlan('commercial', billingCycle)}
               className="mt-8 w-full py-3.5 rounded-2xl bg-[#1a1f30] hover:bg-[#252b3d] text-[#f5efe6] font-bold text-sm border border-[#3d3428] hover:border-[#0284c7] transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <span>Contratar Comercial</span>
+              <span>{billingCycle === 'yearly' ? 'Contratar por 12x de R$ 89' : 'Contratar Comercial'}</span>
               <ArrowRight className="w-4 h-4 text-[#38bdf8]" />
             </button>
           </div>
@@ -296,6 +363,10 @@ export const CleanPricingSection: React.FC<CleanPricingSectionProps> = ({
           <span className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-[#e5985a]" />
             Ativação imediata no WhatsApp
+          </span>
+          <span className="flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
+            Pagamentos Globais Stripe (USD, EUR, BRL)
           </span>
         </div>
 

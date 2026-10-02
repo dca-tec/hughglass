@@ -85,7 +85,7 @@ export const GovBrModal: React.FC<GovBrModalProps> = ({
                 Sem necessidade de anexar conta de luz!
               </p>
               <p className="text-[11px] text-slate-300 leading-relaxed">
-                Ao autenticar com sua conta Gov.br, o NômadeHub emite e assina sua <strong>Declaração Oficial de Residência</strong> com presunção legal de veracidade perante bancos, órgãos públicos e empresas.
+                Ao autenticar com sua conta Gov.br, a Hugh Glass emite e assina sua <strong>Declaração Oficial de Residência</strong> com presunção legal de veracidade perante bancos, órgãos públicos e empresas.
               </p>
             </div>
 

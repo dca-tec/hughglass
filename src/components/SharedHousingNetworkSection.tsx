@@ -149,7 +149,7 @@ export const SharedHousingNetworkSection: React.FC<SharedHousingNetworkSectionPr
               </span>
               <h3 className="text-xl font-bold text-white">Pool & Renda Passiva</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Comprou uma cota e não vai morar no local? Coloque o espaço sob a Pool de Gestão da NômadeHub. Nós cuidamos de contratos, ocupação, manutenção e repassamos o aluguel líquido todo mês.
+                Comprou uma cota e não vai morar no local? Coloque o espaço sob a Pool de Gestão da Hugh Glass. Nós cuidamos de contratos, ocupação, manutenção e repassamos o aluguel líquido todo mês.
               </p>
             </div>
 
@@ -479,7 +479,7 @@ export const SharedHousingNetworkSection: React.FC<SharedHousingNetworkSectionPr
               <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono font-bold text-emerald-400 uppercase">
-                    {selectedPhoto.badge || 'NômadeHub Estrutura Oficial'}
+                    {selectedPhoto.badge || 'Hugh Glass Estrutura Oficial'}
                   </span>
                   {selectedPhoto.unitCity && (
                     <span className="text-xs font-mono text-slate-400">

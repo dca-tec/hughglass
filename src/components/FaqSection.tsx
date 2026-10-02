@@ -7,7 +7,7 @@ export const FaqSection: React.FC = () => {
   const faqs = [
     {
       q: 'O comprovante de endereço residencial é aceito em bancos e órgãos oficiais?',
-      a: 'Sim, 100%! O comprovante emitido pela NômadeHub é estritamente amparado pela Lei Federal nº 7.115/1983, que garante a validade jurídica de declarações de domicílio e residência em todo o território nacional. Você pode utilizar para abrir contas bancárias (Itaú, Nubank, Bradesco, Inter), emitir ou renovar CNH, passaporte, solicitar cartões de crédito e cadastros em concursos e órgãos públicos.'
+      a: 'Sim, 100%! O comprovante emitido pela Hugh Glass é estritamente amparado pela Lei Federal nº 7.115/1983, que garante a validade jurídica de declarações de domicílio e residência em todo o território nacional. Você pode utilizar para abrir contas bancárias (Itaú, Nubank, Bradesco, Inter), emitir ou renovar CNH, passaporte, solicitar cartões de crédito e cadastros em concursos e órgãos públicos.'
     },
     {
       q: 'Qual é a diferença entre o endereço residencial e o endereço comercial/fiscal?',
@@ -28,6 +28,10 @@ export const FaqSection: React.FC = () => {
     {
       q: 'Existe período de carência ou fidelidade obrigatória?',
       a: 'Não. Os planos mensais não possuem carência nem multas rescisórias: você contrata enquanto precisar e pode cancelar a qualquer momento diretamente pelo seu painel com 1 clique.'
+    },
+    {
+      q: 'Sou estrangeiro ou não resido no Brasil. Posso contratar para abrir meu CNPJ e pagar via Stripe?',
+      a: 'Sim! Atendemos fundadores estrangeiros, expatriados e nômades globais que desejam abrir ou manter empresa no Brasil (CNPJ de Sócio Não-Residente, conforme Instrução Normativa RFB nº 2.119/2022). Nosso domicílio fiscal em Florianópolis e São Paulo é homologado na Junta Comercial e Prefeitura para sócios não-residentes com procurador legal no Brasil. Você pode contratar e pagar diretamente em Dólares (USD), Euros (EUR) ou Reais (BRL) via Stripe com cartões internacionais, Apple Pay ou Google Pay.'
     }
   ];
 

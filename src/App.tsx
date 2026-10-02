@@ -11,6 +11,8 @@ import { CheckoutModal } from './components/CheckoutModal';
 import { ClientDashboard } from './components/Dashboard/ClientDashboard';
 import { GovBrModal } from './components/GovBrModal';
 import { AdminPortal } from './components/Admin/AdminPortal';
+import { AdminLoginModal } from './components/Admin/AdminLoginModal';
+import { HughGlassLogo } from './components/HughGlassLogo';
 import { subscribeSiteMedia } from './lib/mediaService';
 import { DEFAULT_SITE_MEDIA } from './data/defaultMedia';
 import { 
@@ -24,7 +26,8 @@ import {
   Home,
   CheckCircle2,
   Sliders,
-  ExternalLink
+  ExternalLink,
+  Lock
 } from 'lucide-react';
 
 export default function App() {
@@ -32,6 +35,12 @@ export default function App() {
   const [isGovBrModalOpen, setIsGovBrModalOpen] = useState<boolean>(false);
   const [isGovBrVerified, setIsGovBrVerified] = useState<boolean>(false);
   const [siteMediaItems, setSiteMediaItems] = useState<SiteMediaItem[]>(DEFAULT_SITE_MEDIA);
+
+  // Admin authentication state & secret gatekeeper
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState<boolean>(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
+    return typeof window !== 'undefined' && sessionStorage.getItem('nomadehub_admin_auth') === 'true';
+  });
 
   // Checkout modal state
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
@@ -45,6 +54,60 @@ export default function App() {
     });
     return () => unsubscribe();
   }, []);
+
+  // Keyboard shortcut listener (Ctrl+Shift+A or Cmd+Shift+A) & #admin URL hash listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        handleRequestAdmin();
+      }
+    };
+
+    const handleHash = () => {
+      if (window.location.hash === '#admin') {
+        handleRequestAdmin();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('hashchange', handleHash);
+
+    if (window.location.hash === '#admin') {
+      handleHash();
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, [isAdminAuthenticated]);
+
+  const handleRequestAdmin = () => {
+    if (sessionStorage.getItem('nomadehub_admin_auth') === 'true') {
+      setIsAdminAuthenticated(true);
+      setCurrentView('admin');
+    } else {
+      setIsAdminModalOpen(true);
+    }
+  };
+
+  const handleAdminLoginSuccess = () => {
+    setIsAdminAuthenticated(true);
+    setIsAdminModalOpen(false);
+    setCurrentView('admin');
+  };
+
+  const handleAdminLogout = () => {
+    sessionStorage.removeItem('nomadehub_admin_auth');
+    sessionStorage.removeItem('nomadehub_admin_user');
+    sessionStorage.removeItem('nomadehub_admin_time');
+    setIsAdminAuthenticated(false);
+    setCurrentView('landing');
+    if (window.location.hash === '#admin') {
+      window.history.replaceState('', document.title, window.location.pathname);
+    }
+  };
 
   const handleOpenCheckout = (
     planId: 'residential' | 'commercial' | 'combo' = 'residential',
@@ -72,10 +135,37 @@ export default function App() {
 
       {/* VIEW SWITCHING: ADMIN CMS */}
       {currentView === 'admin' ? (
-        <AdminPortal
-          mediaItems={siteMediaItems}
-          onBackToSite={() => setCurrentView('landing')}
-        />
+        isAdminAuthenticated ? (
+          <AdminPortal
+            mediaItems={siteMediaItems}
+            onBackToSite={() => setCurrentView('landing')}
+            onLogout={handleAdminLogout}
+          />
+        ) : (
+          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4 my-20">
+            <div className="w-14 h-14 rounded-2xl bg-[#1e1711] border border-[#c27839]/40 flex items-center justify-center text-[#e5985a] shadow-lg shadow-[#c27839]/10">
+              <Lock className="w-6 h-6 stroke-[2.5]" />
+            </div>
+            <h2 className="text-xl font-bold font-display text-[#f5efe6]">Acesso Restrito ao Gatekeeper</h2>
+            <p className="text-xs text-[#9e8e78] max-w-md">
+              O painel de gerenciamento de mídias e banners requer autorização de administrador.
+            </p>
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                onClick={() => setIsAdminModalOpen(true)}
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#c27839] via-[#d18242] to-[#e5985a] text-[#0c0d12] font-black text-xs shadow-md shadow-[#c27839]/20 cursor-pointer"
+              >
+                Autenticar Administrador
+              </button>
+              <button
+                onClick={() => setCurrentView('landing')}
+                className="px-4 py-2.5 rounded-xl bg-[#141724] text-[#d4c5b0] text-xs font-semibold border border-[#3d3428] cursor-pointer"
+              >
+                Voltar à Página Principal
+              </button>
+            </div>
+          </div>
+        )
       ) : currentView === 'dashboard' ? (
         /* VIEW SWITCHING: CLIENT DASHBOARD */
         <ClientDashboard
@@ -90,7 +180,7 @@ export default function App() {
           {/* 1. HERO FULLBANNER NO TOPO (Carrega fotos reais do Firestore) */}
           <HeroFullBanner
             banners={siteMediaItems.filter((i) => i.category === 'top_banner')}
-            onOpenAdmin={() => setCurrentView('admin')}
+            onOpenAdmin={handleRequestAdmin}
             onSelectPlan={() => handleScrollTo('planos')}
           />
 
@@ -107,7 +197,7 @@ export default function App() {
           {/* 4. MAPA DE HUBS & LOCKERS 24/7 NAS PRINCIPAIS CAPITAIS */}
           <InteractiveMap 
             lockerPhotos={siteMediaItems.filter((i) => i.category === 'lockers_gallery')}
-            onOpenAdmin={() => setCurrentView('admin')}
+            onOpenAdmin={handleRequestAdmin}
           />
 
           {/* 5. TABELA DE PLANOS & PREÇOS (DIRECIONAMENTO DIRETO PARA VENDA) */}
@@ -150,11 +240,8 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
               
               <div className="space-y-3 md:col-span-1">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#c27839] via-[#d18242] to-[#e5985a] flex items-center justify-center text-[#0c0d12] shadow-md shadow-[#c27839]/20">
-                    <Package className="w-5 h-5 text-[#0c0d12] stroke-[2.5]" />
-                  </div>
-                  <span className="font-display text-xl font-bold text-[#f5efe6]">Nômade<span className="text-[#d18242]">Hub</span></span>
+                <div className="mb-2">
+                  <HughGlassLogo variant="horizontal" size="md" showTagline={true} />
                 </div>
                 <p className="text-[#d4c5b0] text-xs sm:text-sm leading-relaxed">
                   Rede de endereços residenciais fixos e domicílio comercial/fiscal com armários inteligentes 24/7.
@@ -195,24 +282,48 @@ export default function App() {
                 </h4>
                 <ul className="space-y-2 text-xs sm:text-sm">
                   <li><button onClick={() => setCurrentView('dashboard')} className="hover:text-[#e5985a] font-medium transition-colors cursor-pointer">Acessar Meu Painel do Cliente</button></li>
-                  <li><button onClick={() => setCurrentView('admin')} className="hover:text-[#38bdf8] font-medium transition-colors flex items-center gap-1 cursor-pointer"><Sliders className="w-3.5 h-3.5" /> Painel Admin (Banners & Mídias)</button></li>
                   <li><button onClick={() => setIsGovBrModalOpen(true)} className="hover:text-[#38bdf8] font-medium transition-colors cursor-pointer">Validar com Gov.br</button></li>
+                  <li>
+                    <button 
+                      onClick={handleRequestAdmin} 
+                      title="Gatekeeper SEC-4 (Atalho: Ctrl+Shift+A)"
+                      className="text-[#5a5245] hover:text-[#9e8e78] transition-colors flex items-center gap-1.5 cursor-pointer text-xs group pt-1"
+                    >
+                      <Lock className="w-3 h-3 group-hover:text-[#c27839] transition-colors" />
+                      <span className="group-hover:text-[#d4c5b0]">Portal de Gestão</span>
+                    </button>
+                  </li>
                 </ul>
               </div>
 
             </div>
 
             <div className="pt-8 border-t border-[#3d3428]/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9e8e78]">
-              <p>© 2026 NômadeHub Tecnologia e Logística Urbana S.A. Inspirado no legado nômade ancestral.</p>
+              <p>© 2026 Hugh Glass Tecnologia e Logística Urbana S.A. Todos os direitos reservados.</p>
               <div className="flex items-center gap-4">
                 <span>CNPJ: 48.910.412/0001-83</span>
                 <span>•</span>
                 <span>Florianópolis • São Paulo • Curitiba</span>
+                <span>•</span>
+                <button
+                  onClick={handleRequestAdmin}
+                  title="Gatekeeper Administrativo (Ctrl+Shift+A)"
+                  className="text-[#3d3428] hover:text-[#c27839] transition-colors cursor-pointer p-0.5"
+                >
+                  <Lock className="w-3 h-3" />
+                </button>
               </div>
             </div>
           </div>
         </footer>
       )}
+
+      {/* ADMIN LOGIN GATEKEEPER MODAL */}
+      <AdminLoginModal
+        isOpen={isAdminModalOpen}
+        onClose={() => setIsAdminModalOpen(false)}
+        onSuccess={handleAdminLoginSuccess}
+      />
 
     </div>
   );

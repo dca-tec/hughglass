@@ -257,7 +257,7 @@ export const SocialImpactModule: React.FC<SocialImpactModuleProps> = ({
                   {donorName || 'Sua Empresa / Seu Nome Aqui'}
                 </p>
                 <p className="text-center text-slate-300 leading-relaxed text-xs">
-                  contribui ativamente para a erradicação da invisibilidade documental no Brasil, patrocinando a infraestrutura postal de <strong>{selectedTier} cidadão(s) em trânsito</strong> através da rede colaborativa NômadeHub.
+                  contribui ativamente para a erradicação da invisibilidade documental no Brasil, patrocinando a infraestrutura postal de <strong>{selectedTier} cidadão(s) em trânsito</strong> através da rede colaborativa Hugh Glass.
                 </p>
               </div>
 

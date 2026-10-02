@@ -86,7 +86,7 @@ export const NomadPassportPrivacyTab: React.FC = () => {
             </div>
             <h3 className="text-xl font-bold text-white">Geo-Routing Inteligente de Encomendas</h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Atualize seu itinerário de viagem e o NômadeHub reencaminha automaticamente novos pacotes para o Hub parceiro mais próximo.
+              Atualize seu itinerário de viagem e a Hugh Glass reencaminha automaticamente novos pacotes para o Hub parceiro mais próximo.
             </p>
           </div>
         </div>

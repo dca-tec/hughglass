@@ -41,11 +41,13 @@ import {
   ChevronRight,
   Layers,
   MapPin,
-  Lock
+  Lock,
+  CreditCard
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import heroEgyptianImg from '../../assets/images/hero_egyptian_copper_hub_1790445226601.jpg';
 import copperLockersImg from '../../assets/images/modern_copper_lockers_hub_1790445237611.jpg';
+import { StripeSettingsModal } from './StripeSettingsModal';
 
 interface AdminPortalProps {
   mediaItems: SiteMediaItem[];
@@ -154,6 +156,7 @@ const CURATED_PRESETS = [
 export const AdminPortal: React.FC<AdminPortalProps> = ({
   mediaItems,
   onBackToSite,
+  onLogout,
   onRefresh
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<SiteMediaCategory | 'all'>('all');
@@ -172,6 +175,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
   // In-UI Confirmation Modals (never window.alert / window.confirm)
   const [itemToDelete, setItemToDelete] = useState<{ id: string; title: string } | null>(null);
   const [isConfirmingSeed, setIsConfirmingSeed] = useState(false);
+  const [isStripeModalOpen, setIsStripeModalOpen] = useState(false);
 
   // Form state
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -600,6 +604,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               <span>Nova Imagem</span>
             </button>
 
+            {/* Stripe Products & Payment Links Button */}
+            <button
+              onClick={() => setIsStripeModalOpen(true)}
+              title="Configurações e catálogo de produtos Stripe"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#635bff]/15 hover:bg-[#635bff]/25 text-[#a594fd] text-xs font-semibold border border-[#635bff]/30 transition-all cursor-pointer"
+            >
+              <CreditCard className="w-3.5 h-3.5" />
+              <span className="hidden lg:inline">Produtos Stripe</span>
+            </button>
+
             {/* Back to Site Button */}
             <button
               onClick={onBackToSite}
@@ -608,6 +622,18 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               <span>Ver Site</span>
               <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
             </button>
+
+            {/* Logout / Lock Button */}
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                title="Encerrar sessão de administrador"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-xs font-semibold border border-rose-500/30 transition-all cursor-pointer"
+              >
+                <Lock className="w-3.5 h-3.5 text-rose-400" />
+                <span className="hidden sm:inline">Encerrar Sessão</span>
+              </button>
+            )}
 
           </div>
 
@@ -1055,7 +1081,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
             {/* Presets Quick Picker Accordion */}
             <div className="p-4 rounded-2xl bg-[#0c0d12] border border-[#3d3428] space-y-2">
               <span className="text-[10px] font-mono text-[#e5985a] font-bold uppercase tracking-wider block">
-                Sugestão Rápida: Escolher da Coleção Curada NômadeHub
+                Sugestão Rápida: Escolher da Coleção Curada Hugh Glass
               </span>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
                 {CURATED_PRESETS.map((preset, idx) => (
@@ -1440,6 +1466,12 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
           </div>
         </div>
       )}
+
+      {/* STRIPE SETTINGS MODAL */}
+      <StripeSettingsModal
+        isOpen={isStripeModalOpen}
+        onClose={() => setIsStripeModalOpen(false)}
+      />
 
     </div>
   );

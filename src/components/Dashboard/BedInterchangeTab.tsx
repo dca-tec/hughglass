@@ -306,7 +306,7 @@ export const BedInterchangeTab: React.FC = () => {
             </div>
             <h3 className="text-xl font-bold text-white">Minhas Cotas & Rendimentos da Pool</h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Acompanhe a rentabilidade líquida das suas cotas imobiliárias colocadas sob a gestão centralizada da NômadeHub.
+              Acompanhe a rentabilidade líquida das suas cotas imobiliárias colocadas sob a gestão centralizada da Hugh Glass.
             </p>
           </div>
 

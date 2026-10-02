@@ -157,7 +157,7 @@ Emitido em conformidade com o Decreto 7.574/2011.`
     ocrSnippet: 'Item: Roteador Portátil 4G/5G com Bateria 10.000mAh para Nômades...',
     ocrText: `DANFE SIMPLIFICADO - DOCUMENTO AUXILIAR DE NOTA FISCAL ELETRÔNICA
 Chave de Acesso: 3524 0903 0073 3100 0141 5500 1004 8921 8812
-Destinatário: Lucas M. (NômadeHub Box Campeche)
+Destinatário: Lucas M. (Hugh Glass Box Campeche)
 Conteúdo: Kit Conectividade Satelital & Cabo USB-C Reforçado.
 Transportador: Jadlog Logística Expressa`
   },
@@ -180,7 +180,7 @@ Transportador: Jadlog Logística Expressa`
 Olá, Lucas!
 Aqui está o seu novo cartão físico Mastercard Contactless para suas viagens e compras internacionais sem IOF abusivo.
 Lembre-se de desbloquear pelo aplicativo do Inter utilizando o código de segurança impresso no verso do cartão.
-Endereço de entrega seguro via NômadeHub Locker Florianópolis.`
+Endereço de entrega seguro via Hugh Glass Locker Florianópolis.`
   },
   {
     id: 'mail-004',
@@ -201,7 +201,7 @@ Endereço de entrega seguro via NômadeHub Locker Florianópolis.`
 JUNTA COMERCIAL DO ESTADO DE SANTA CATARINA - JUCESC
 CERTIDÃO SIMPLIFICADA DE CONSTITUIÇÃO EMPRESARIAL
 
-A JUCESC certifica que a empresa com CNPJ 49.812.304/0001-92 encontra-se devidamente registrada, com Domicílio Fiscal e Ponto de Contato Virtual estabelecido no Hub Nômade Florianópolis, em conformidade com a Resolução CGSIM nº 61/2020 e a Lei da Liberdade Econômica (Lei nº 13.874/2019).
+A JUCESC certifica que a empresa com CNPJ 49.812.304/0001-92 encontra-se devidamente registrada, com Domicílio Fiscal e Ponto de Contato Virtual estabelecido no Hub Hugh Glass Florianópolis, em conformidade com a Resolução CGSIM nº 61/2020 e a Lei da Liberdade Econômica (Lei nº 13.874/2019).
 Atividades autorizadas: Desenvolvimento de Software, Design UX, Consultoria em TI e Produção Audiovisual Digital.`
   }
 ];
@@ -211,7 +211,7 @@ export const FISCAL_DOCS: FiscalDocument[] = [
     id: 'doc-01',
     title: 'Certidão de Endereço Fiscal & Domicílio Comercial',
     category: 'certidao_fiscal',
-    code: 'CERT-NH-2026-89421',
+    code: 'CERT-HG-2026-89421',
     issuedAt: '01/01/2026',
     validUntil: '31/12/2026',
     authority: 'Prefeitura de Florianópolis & Receita Federal',
@@ -223,10 +223,10 @@ export const FISCAL_DOCS: FiscalDocument[] = [
     id: 'doc-02',
     title: 'Contrato de Cessão de Endereço Virtual & Gestão Logística',
     category: 'contrato_social',
-    code: 'CONTR-NH-FLN-042',
+    code: 'CONTR-HG-FLN-042',
     issuedAt: '12/01/2026',
     validUntil: 'Indeterminado',
-    authority: 'NômadeHub Tecnologia & Infraestrutura Ltda.',
+    authority: 'Hugh Glass Tecnologia & Infraestrutura Ltda.',
     authHash: '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069',
     fileSize: '680 KB',
     description: 'Contrato assinado digitalmente com validade jurídica (ICP-Brasil) para comprovação perante bancos, embaixadas e fornecedores.'

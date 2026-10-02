@@ -22,7 +22,7 @@ export const PwaInstallBanner: React.FC<PwaInstallBannerProps> = ({ onTriggerSim
           </div>
           <div>
             <span className="font-bold text-white flex items-center gap-1.5">
-              <span>App PWA NômadeHub</span>
+              <span>App PWA Hugh Glass</span>
               <span className="text-[10px] px-2 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">
                 Pronto para Instalar
               </span>
